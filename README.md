@@ -9,6 +9,22 @@ npm run dev
 # or
 yarn dev
 ```
+## Ferramentas e plugins utilizados:
+- Context-api
+- React-Color
+- Date-fns
+- Styled-components
+- Formik
+- uuidV4
+- React-icons
+- Moment
+
+## Funcionalidades:
+- Cria calendario
+- Cria um lembrete para a data e hora selecionada
+- Possibilidade de adicionar varios lembretes no mesmo dia
+- Editar cor do lembrete
+- Apagar todos os lembretes do dia
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
