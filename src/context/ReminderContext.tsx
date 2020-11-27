@@ -35,7 +35,7 @@ export const ReminderProvider: React.FC = ({ children }) => {
   },[])
 
   const removeAll = useCallback(() => {
-    localStorage.clear('reminder');
+    localStorage.clear();
   },[])
 
   const removeInfo = useCallback(({ id }) => {
