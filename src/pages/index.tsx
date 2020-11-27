@@ -44,7 +44,7 @@ export default function Home() {
 
   function handleRemove() {
     removeAll();
-    console.log(informacoes);
+    loadInfo();
   }
 
   function handleInfo() {
@@ -66,12 +66,9 @@ export default function Home() {
       })
 
       
-
-      setTimeout(function(){
-        handleInfo();
-        setMode('INFO')
-        loadInfo();
-      }, 5000)
+       handleInfo();
+       setMode('INFO')
+       loadInfo();
       
     } catch (error) {
       
@@ -79,8 +76,6 @@ export default function Home() {
   },[])
 
   function handleClick(day) {
-    // const dia = isToday(day);
-    // setFieldValue('date', day.format('DD/MM/YYYY'))
     setSelectedDate(day.format('DD/MM/YYYY'))
     console.log(selectedDate)
 
@@ -111,18 +106,6 @@ export default function Home() {
                     <Day onClick={() => !beforeToday(day) && setValue(day)}>
                       <div className={dayStyles(day, value)} onClick={() => handleClick(day)} >
                         {day.format("D").toString()}
-                        <Top>
-                          {/* <Reminder color='#671241' /> */}
-                          {/* {informacoes.length > 1 && (
-                            <>
-                              {informacoes.map((notficacao) => {
-                                if (notficacao.date === isToday(day)) {
-                                  return <Reminder color={notficacao.cor} />;
-                                }
-                              })}
-                            </>
-                          )} */}
-                        </Top>
                       </div>
                       
                     </Day>
@@ -155,8 +138,7 @@ export default function Home() {
                       <Field id="hour" name="hour" value={values.hour} type="time" min="0:00" max="23:59" required />
                       <Field id="date" name="date" value={selectedDate} type="text" /> 
                     </DataHora>
-                    {/* <Field name="color" value={color} type='text' placeholder= "lembrete" /> */}
-                    <Text>Adicione uma cor para sua tarefa.</Text>
+                    <Text>Dê dois cliques para adicionar uma cor para sua tarefa.</Text>
                     <TwitterPicker color={color} 
                       onChangeComplete={(color) => setColor(color.hex)}
                     />
@@ -172,32 +154,31 @@ export default function Home() {
         </Section>
 
           <ListReminder>
-          { info === 'INFORMACOES' && 
-            <>
-              <h2>Você não possui agendamentos.</h2>
-              <h2>Dê dois cliques em uma data válida para agendar.</h2>
-            </>
-          }
-          { info === 'INFO' && 1 <= informacoes.length && 
-
-            <ItemList>
-              {informacoes.map(item => {
-                return (
-                  <Item key={item.id} color={item.cor}>
-                    <Info>
-                      <h2>{item.message}</h2>
-                      <strong >{item.city}</strong>
-                      <span >{item.date}</span>
-                      <span >{item.hour}</span>
-                    </Info>
-                    <Icons>
-                      <MdEdit />
-                      <FaMinusCircle onClick={() => handleRemove()} />
-                    </Icons>
-                  </Item>
-                )
-              })}
-            </ItemList>}
+          { !informacoes ? (
+              <>
+                <h2>Você não possui agendamentos.</h2>
+                <h2>Dê dois cliques em uma data válida para agendar.</h2>
+              </>
+            ) : (
+              <ItemList>
+                {informacoes.map(item => {
+                  return (
+                    <Item key={item.id} color={item.cor}>
+                      <Info>
+                        <h2>{item.message}</h2>
+                        <strong >{item.city}</strong>
+                        <span >{item.date}</span>
+                        <span >{item.hour}</span>
+                      </Info>
+                      <Icons>
+                        <MdEdit />
+                        <FaMinusCircle onClick={() => handleRemove()} />
+                      </Icons>
+                    </Item>
+                  )
+                })}
+              </ItemList>
+            )}
           </ListReminder>
       </Content>
     </Container>
